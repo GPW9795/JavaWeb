@@ -25,14 +25,14 @@ public class RegistServlet extends HttpServlet {
             // 3 检查用户名是否可用
             if (userService.existUsername(username)) { // 不可用
                 System.out.println("用户名已存在");
-                req.getRequestDispatcher("/pages/user/regist.html").forward(req, resp);
+                req.getRequestDispatcher("/pages/user/regist.jsp").forward(req, resp);
             } else { // 可用
                 userService.registUser(new User(null, username, password, email));
-                req.getRequestDispatcher("/pages/user/regist_success.html").forward(req, resp);
+                req.getRequestDispatcher("/pages/user/regist_success.jsp").forward(req, resp);
             }
         } else { // 验证码错误
             System.out.println("验证码错误");
-            req.getRequestDispatcher("/pages/user/regist.html").forward(req, resp);
+            req.getRequestDispatcher("/pages/user/regist.jsp").forward(req, resp);
         }
     }
 }
