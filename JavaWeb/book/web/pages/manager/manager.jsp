@@ -16,7 +16,7 @@
 <body>
 	
 	<div id="header">
-		<img class="logo_img" alt="" src="../../static/img/logo.gif" >
+		<img class="logo_img" alt="" src="static/img/logo.gif" >
 		<span class="wel_word">后台管理系统</span>
 		<%--静态包含manager管理模块的菜单--%>
 		<%@include file="/pages/common/manager_menu.jsp"%>
