@@ -17,6 +17,9 @@ public interface BookDao {
 
     Integer queryForPageTotalCount();
 
+    Integer queryForPageTotalCountByPrice(int min, int max);
+
     List<Book> queryForPageItems(int begin, int pageSize);
 
+    List<Book> queryForPageItemsByPrice(int begin, int pageSize, int min, int max);
 }
