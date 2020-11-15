@@ -1,6 +1,7 @@
 package com.gpw.test;
 
 import com.gpw.pojo.Book;
+import com.gpw.pojo.Page;
 import com.gpw.service.BookService;
 import com.gpw.service.impl.BookServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -39,5 +40,11 @@ class BookServiceTest {
         for (Book book : list) {
             System.out.println(book);
         }
+    }
+
+    @Test
+    void page() {
+        Page<Book> page = bookService.page(1, 10);
+        System.out.println(page);
     }
 }

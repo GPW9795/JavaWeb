@@ -42,4 +42,17 @@ class BookDaoTest {
             System.out.println(book);
         }
     }
+
+    @Test
+    void queryForPageTotalCount() {
+        int count = bookDao.queryForPageTotalCount();
+        System.out.println(count);
+    }
+
+    @Test
+    void queryForPageItems() {
+        for (Book book : bookDao.queryForPageItems(0, 10)) {
+            System.out.println(book);
+        }
+    }
 }

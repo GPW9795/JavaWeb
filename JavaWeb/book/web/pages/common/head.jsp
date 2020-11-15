@@ -14,8 +14,9 @@
             + request.getServerPort()
             + request.getContextPath()
             + "/";
+    pageContext.setAttribute("basePath", basePath);
 %>
 <!--base固定相对路径跳转的结果-->
 <base href="<%=basePath%>">
-<link type="text/css" rel="stylesheet" href="static/css/style.css" >
+<link type="text/css" rel="stylesheet" href="static/css/style.css">
 <script type="text/javascript" src="static/script/jquery-1.7.2.js"></script>
