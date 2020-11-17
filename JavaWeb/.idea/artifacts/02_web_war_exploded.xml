@@ -8,7 +8,6 @@
           <element id="module-output" name="02_web" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="gson-2.2.4" />
           <element id="library" level="module" name="druid-1.1.9" module-name="02_web" />
         </element>
       </element>

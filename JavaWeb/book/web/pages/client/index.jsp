@@ -17,7 +17,10 @@
             // 加入购物车
             $(".addToCart").click(function () {
                 var bookId = $(this).attr("bookId");
-                window.location.href = "${pageScope.basePath}" + "cartServlet?action=addItem&id=" + bookId;
+                $.getJSON("${basePath}cartServlet", "action=ajaxAddItem&id=" + bookId, function (data) {
+                    $("#totalCount").text("您的购物车中有" + data.totalCount + "件商品");
+                    $("#lastName").text(data.lastName);
+                })
             });
         });
     </script>
@@ -53,15 +56,15 @@
         </div>
         <div style="text-align: center">
             <c:if test="${empty sessionScope.cart}">
-                <span></span>
+                <span id="totalCount"></span>
                 <div>
-                    <span style="color: red">当前购物车为空</span>
+                    <span id="lastName" style="color: red">当前购物车为空</span>
                 </div>
             </c:if>
             <c:if test="${not empty sessionScope.cart}">
-                <span>您的购物车中有${sessionScope.cart.totalCount}件商品</span>
+                <span id="totalCount">您的购物车中有${sessionScope.cart.totalCount}件商品</span>
                 <div>
-                    您刚刚将<span style="color: red">${sessionScope.lastName}</span>加入到了购物车中
+                    您刚刚将<span id="lastName" style="color: red">${sessionScope.lastName}</span>加入到了购物车中
                 </div>
             </c:if>
         </div>

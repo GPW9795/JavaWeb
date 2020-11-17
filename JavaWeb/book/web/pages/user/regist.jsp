@@ -87,6 +87,16 @@
                 this.src = "${basePath}kaptcha.jpg?d=" + new Date();
             });
 
+            $("#username").blur(function () {
+                var username = this.value;
+                $.getJSON("${basePath}userServlet", "action=ajaxExistUsername&username=" + username, function (data) {
+                    if (data.existUsername){
+                        $("span.errorMsg").text("用户名已存在！");
+                    }else {
+                        $("span.errorMsg").text("用户名可用！");
+                    }
+                });
+            });
         });
 
     </script>

@@ -1,5 +1,6 @@
 package com.gpw.web;
 
+import com.google.gson.Gson;
 import com.gpw.pojo.Book;
 import com.gpw.pojo.Cart;
 import com.gpw.pojo.CartItem;
@@ -11,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CartServlet extends BaseServlet {
     private BookService bookService = new BookServiceImpl();
@@ -31,6 +34,27 @@ public class CartServlet extends BaseServlet {
         // 重定向回原来页面
         req.getSession().setAttribute("lastName", cartItem.getName());
         resp.sendRedirect(req.getHeader("Referer"));
+    }
+
+    /**
+     * 加入购物车
+     */
+    protected void ajaxAddItem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = WebUtils.parseInt(req.getParameter("id"), 0);
+        Book book = bookService.queryBookById(id);
+        CartItem cartItem = new CartItem(book.getId(), book.getName(), 1, book.getPrice(), book.getPrice());
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
+            req.getSession().setAttribute("cart", cart);
+        }
+        cart.addItem(cartItem);
+        Map<String, Object> map = new HashMap<>();
+        map.put("totalCount", cart.getTotalCount());
+        map.put("lastName", cartItem.getName());
+        Gson gson = new Gson();
+        String json = gson.toJson(map);
+        resp.getWriter().write(json);
     }
 
     /**

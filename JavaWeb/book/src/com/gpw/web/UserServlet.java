@@ -1,5 +1,7 @@
 package com.gpw.web;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.gpw.pojo.User;
 import com.gpw.service.UserService;
 import com.gpw.service.impl.UserServiceImpl;
@@ -9,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
@@ -74,5 +78,19 @@ public class UserServlet extends BaseServlet {
             req.setAttribute("email", email);
             req.getRequestDispatcher("/pages/user/regist.jsp").forward(req, resp);
         }
+    }
+
+
+    /**
+     * 是否存在用户名
+     */
+    protected void ajaxExistUsername(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getParameter("username");
+        boolean existUsername = userService.existUsername(username);
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("existUsername", existUsername);
+        Gson gson = new Gson();
+        String json = gson.toJson(resultMap);
+        resp.getWriter().write(json);
     }
 }
