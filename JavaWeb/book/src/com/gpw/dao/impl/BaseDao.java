@@ -21,12 +21,10 @@ public abstract class BaseDao {
         Connection conn = JdbcUtils.getConnection();
         try {
             return queryRunner.update(conn, sql, args);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-            JdbcUtils.close(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return -1;
     }
 
     /**
@@ -36,12 +34,10 @@ public abstract class BaseDao {
         Connection conn = JdbcUtils.getConnection();
         try {
             return queryRunner.query(conn, sql, new BeanHandler<T>(type), args);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-            JdbcUtils.close(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     /**
@@ -51,26 +47,22 @@ public abstract class BaseDao {
         Connection conn = JdbcUtils.getConnection();
         try {
             return queryRunner.query(conn, sql, new BeanListHandler<>(type), args);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-            JdbcUtils.close(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     /**
      * 查询某一行一列的SQL语句
      */
-    public Object queryForSingleValue(String sql, Object...args){
+    public Object queryForSingleValue(String sql, Object... args) {
         Connection conn = JdbcUtils.getConnection();
         try {
             return queryRunner.query(conn, sql, new ScalarHandler(), args);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-            JdbcUtils.close(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 }
